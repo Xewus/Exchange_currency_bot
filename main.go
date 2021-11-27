@@ -37,12 +37,10 @@ func main() {
 	}
 
 	bot.Debug = true
-
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
-
 	updates, err := bot.GetUpdatesChan(u)
 
 	for update := range updates {
@@ -69,8 +67,8 @@ func main() {
 			}
 				db[update.Message.Chat.ID][msgArr[1]] += summa
 			text = Sprintf(for_add, msgArr[1], summa, db[update.Message.Chat.ID][msgArr[1]])
-		case "SUB":
 
+		case "SUB":
 			err := checkInput(msgArr)
 			if err != nil {
 				bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, err.Error()))
@@ -82,10 +80,12 @@ func main() {
 				continue
 			}
 			db[update.Message.Chat.ID][msgArr[1]] -= summa
-			text = Sprintf(for_cut, msgArr[1], summa, db[update.Message.Chat.ID][msgArr[1]])
+                        text = Sprintf(for_cut, msgArr[1], summa, db[update.Message.Chat.ID][msgArr[1]])
+		
 		case "DEL":
 			db[update.Message.Chat.ID][msgArr[1]] = 0
 			text = Sprintf(for_del, msgArr[1], db[update.Message.Chat.ID][msgArr[1]])
+		
 		case "SHOW":
 			var priceUsd, sumRub, usd float64
 			text = "Balance:\n"
@@ -100,12 +100,12 @@ func main() {
 				text += (Sprintf(for_show, key, value) + Sprintf(" (%.2f RUB)\n", usd))
 		    }
 			text += Sprintf("Summa: %.2f RUB", sumRub)
+		
 		default:
-			text = "I don't know this command." + update.Message.Text
+			text = "I don't know this command > " + update.Message.Text
 		}
 
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, text)
-
 		bot.Send(msg)
 	}
 }
@@ -115,7 +115,6 @@ func checkInput(arr []string) (err error) {
 		err = errors.New(incorrect_format_input)
 		return
 	}
-
 	resp, err := http.Get(Sprintf("https://www.binance.com/api/v3/ticker/price?symbol=%sUSDT", arr[1]))
 	if err != nil {
 		return
