@@ -5,27 +5,23 @@ and count the balance in real money.
 
 # Examples of command
 Add cryptocurrency and/or increase balance:
-- command currency number
-...
-ADD BTC 9.999
-...
+<command currency number>
+
+- ADD BTC 9.999
 
 Decrease balance:
-- command currency number
-...
-SUB ETH 7.777
-...
+<command currency number>
+
+- SUB ETH 7.777
 
 Remove cryptocurrency:
-- command currency
-...
-DEL BTC
-...
+<command currency>
+
+- DEL BTC
 
 Show your balance in real money:
-- command [option RUB, GBP, EUR etc, default USD]
-...
-SHOW
-...
-SHOW EUR
-...
+<command [option RUB, GBP, EUR etc, default USD]>
+
+- SHOW
+
+- SHOW EUR
