@@ -35,7 +35,7 @@ type wallet map[string]float64
 var db = map[int64]wallet{}
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("token")
+	bot, err := tgbotapi.NewBotAPI("1979585498:AAHAtPDheiR4rxmf5BIcR1Y-p0QAEONRsGU")
 	if err != nil {
 		log.Panic(err)
 	}
@@ -69,21 +69,10 @@ func main() {
 				bot.Send(tgbotapi.NewMessage(chatId, errorCoversation))
 				continue
 			}
-<<<<<<< HEAD
 			db[chatId][msgArr[1]] += summa
 			text = Sprintf(forAdd, msgArr[1], summa, db[chatId][msgArr[1]])
 		case "SUB":
 			isInWallet, err := checkInput(chatId, msgArr, 3, false)
-=======
-			if _, ok := db[update.Message.Chat.ID]; !ok {
-				db[update.Message.Chat.ID] = wallet{}
-			}
-				db[update.Message.Chat.ID][msgArr[1]] += summa
-			text = Sprintf(for_add, msgArr[1], summa, db[update.Message.Chat.ID][msgArr[1]])
-
-		case "SUB":
-			err := checkInput(msgArr)
->>>>>>> 515455d19d6b7b1799f9371d39dc5b3c2ca28c25
 			if err != nil {
 				bot.Send(tgbotapi.NewMessage(chatId, err.Error()))
 				continue
@@ -97,7 +86,6 @@ func main() {
 				bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, errorCoversation))
 				continue
 			}
-<<<<<<< HEAD
 			db[chatId][msgArr[1]] -= summa
 			text = Sprintf(forSub, msgArr[1], summa, db[chatId][msgArr[1]])
 		case "DEL":
@@ -112,15 +100,6 @@ func main() {
 			}
 			delete(db[chatId], msgArr[1])
 			text = Sprintf(forDel, msgArr[1])
-=======
-			db[update.Message.Chat.ID][msgArr[1]] -= summa
-                        text = Sprintf(for_cut, msgArr[1], summa, db[update.Message.Chat.ID][msgArr[1]])
-		
-		case "DEL":
-			db[update.Message.Chat.ID][msgArr[1]] = 0
-			text = Sprintf(for_del, msgArr[1], db[update.Message.Chat.ID][msgArr[1]])
-		
->>>>>>> 515455d19d6b7b1799f9371d39dc5b3c2ca28c25
 		case "SHOW":
 			money := "USDT"
 			_, err = checkInput(chatId, msgArr, 2, false)
@@ -140,34 +119,19 @@ func main() {
 					bot.Send(tgbotapi.NewMessage(chatId, err.Error()))
 					continue
 				}
-<<<<<<< HEAD
 				price *= value
 				summa += price
 				text += Sprintf(forShow, key, value, price, money)
 			}
 			text += Sprintf(forShowSum, money, summa)
-=======
-				usd = value * priceUsd
-				sumRub += usd
-				text += (Sprintf(for_show, key, value) + Sprintf(" (%.2f RUB)\n", usd))
-		    }
-			text += Sprintf("Summa: %.2f RUB", sumRub)
-		
->>>>>>> 515455d19d6b7b1799f9371d39dc5b3c2ca28c25
 		default:
-			text = "I don't know this command > " + update.Message.Text
+			text = "I don't know this command." + update.Message.Text
 		}
-<<<<<<< HEAD
 		msg := tgbotapi.NewMessage(chatId, text)
-=======
-
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, text)
->>>>>>> 515455d19d6b7b1799f9371d39dc5b3c2ca28c25
 		bot.Send(msg)
 	}
 }
 
-<<<<<<< HEAD
 func checkInput(chatId int64, arr []string, needLen int, isCurrency bool) (isInWallet bool, err error) {
 	switch arr[0] {
 	case "SHOW":
@@ -178,15 +142,6 @@ func checkInput(chatId int64, arr []string, needLen int, isCurrency bool) (isInW
 		if len(arr) == 1 {
 			return
 		}
-=======
-func checkInput(arr []string) (err error) {
-	if (arr[0] == "ADD" || arr[0] == "SUB") && len(arr) != 3 {
-		err = errors.New(incorrect_format_input)
-		return
-	}
-	resp, err := http.Get(Sprintf("https://www.binance.com/api/v3/ticker/price?symbol=%sUSDT", arr[1]))
-	if err != nil {
->>>>>>> 515455d19d6b7b1799f9371d39dc5b3c2ca28c25
 		return
 	default:
 		if len(arr) != needLen {
