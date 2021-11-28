@@ -35,7 +35,7 @@ type wallet map[string]float64
 var db = map[int64]wallet{}
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("1979585498:AAHAtPDheiR4rxmf5BIcR1Y-p0QAEONRsGU")
+	bot, err := tgbotapi.NewBotAPI("token")
 	if err != nil {
 		log.Panic(err)
 	}
